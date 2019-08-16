@@ -128,12 +128,12 @@ STATICFILES_DIRS = (
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Configurando DB
-DATABASES['default'].update(dj_database_url.config())
-
 # Configure Django App for Heroku.
 import django_heroku
 django_heroku.settings(locals())
+
+# Configurando DB
+DATABASES['default'].update(dj_database_url.config())
 
 # sslmode issue workaround
 # del DATABASES['default']['OPTIONS']['sslmode']
