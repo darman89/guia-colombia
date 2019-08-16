@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import dj_database_url
+import dj_config_url
+import django_heroku
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -73,12 +75,7 @@ WSGI_APPLICATION = 'guiaColombia.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+DATABASES = {'default': dj_config_url.config()}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -128,12 +125,7 @@ STATICFILES_DIRS = (
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Configure Django App for Heroku.
-import django_heroku
-django_heroku.settings(locals())
-
-# Configurando DB
-DATABASES['default'].update(dj_database_url.config())
+# django_heroku.settings(locals())
 
 # sslmode issue workaround
 # del DATABASES['default']['OPTIONS']['sslmode']
