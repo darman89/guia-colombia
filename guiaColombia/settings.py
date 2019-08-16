@@ -133,7 +133,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Configurando DB
 import dj_database_url
-DATABASES['default'].update(dj_database_url.config(conn_max_age=500, require_ssl=True))
+DATABASES['default'].update(dj_database_url.config())
 
 # Configure Django App for Heroku.
 import django_heroku
