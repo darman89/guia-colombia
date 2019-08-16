@@ -134,4 +134,4 @@ import django_heroku
 django_heroku.settings(locals())
 
 # sslmode issue workaround
-del DATABASES['default']['OPTIONS']['sslmode']
+# del DATABASES['default']['OPTIONS']['sslmode']
