@@ -133,7 +133,6 @@ DATABASES['default'].update(dj_database_url.config())
 
 # Configure Django App for Heroku.
 import django_heroku
-
 django_heroku.settings(locals())
 
 # sslmode issue workaround
