@@ -16,7 +16,6 @@ import os
 import dj_database_url
 import django_heroku
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -39,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'guiaTurismo'
 ]
 
 MIDDLEWARE = [
