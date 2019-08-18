@@ -1,29 +1,29 @@
 from django.db import models
 
 
-class Ciudades(models.Model):
-    nombre = models.CharField(max_length=255)
+class City(models.Model):
+    name = models.CharField(max_length=255)
 
 
-class Categorias(models.Model):
-    descripcion = models.CharField(max_length=255)
+class Category(models.Model):
+    description = models.CharField(max_length=255)
 
 
-class Guias(models.Model):
-    nombre = models.CharField(max_length=255)
-    frase = models.CharField(max_length=255)
-    foto = models.CharField(max_length=255)
+class Guide(models.Model):
+    name = models.CharField(max_length=255)
+    phrase = models.CharField(max_length=255)
+    photo = models.CharField(max_length=255)
     facebook = models.CharField(max_length=255)
     instagram = models.CharField(max_length=255)
-    telefono = models.CharField(max_length=11)
+    phone = models.CharField(max_length=11)
     email = models.CharField(max_length=255)
-    id_ciudad = models.ForeignKey(Ciudades, on_delete=models.CASCADE)
-    id_categorias = models.ManyToManyField(Categorias)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    category = models.ManyToManyField(Category)
 
 
-class Tours(models.Model):
-    id_guia = models.ForeignKey(Guias, on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=255)
-    precio = models.FloatField(max_length=255)
-    url_imagen_mapa = models.CharField(max_length=500)
-    id_categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE)
+class Tour(models.Model):
+    guide = models.ForeignKey(Guide, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    price = models.FloatField(max_length=255)
+    url_map_image = models.CharField(max_length=500)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
