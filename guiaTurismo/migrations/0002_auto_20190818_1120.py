@@ -33,6 +33,20 @@ class Migration(migrations.Migration):
                 ('url_map_image', models.CharField(max_length=500)),
             ],
         ),
+        migrations.CreateModel(
+            name='Category',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('description', models.CharField(max_length=255)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='City',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=255)),
+            ],
+        ),
         migrations.RemoveField(
             model_name='tours',
             name='id_categoria',
@@ -41,29 +55,17 @@ class Migration(migrations.Migration):
             model_name='tours',
             name='id_guia',
         ),
-        migrations.RenameField(
-            model_name='category',
-            old_name='descripcion',
-            new_name='description',
-        ),
-        migrations.RenameField(
-            model_name='city',
-            old_name='nombre',
-            new_name='name',
-        ),
-        migrations.RenameModel(
-            old_name='Categorias',
-            new_name='Category',
-        ),
-        migrations.RenameModel(
-            old_name='Ciudades',
-            new_name='City',
-        ),
         migrations.DeleteModel(
             name='Guias',
         ),
         migrations.DeleteModel(
             name='Tours',
+        ),
+        migrations.DeleteModel(
+            name='Categorias',
+        ),
+        migrations.DeleteModel(
+            name='Ciudades',
         ),
         migrations.AddField(
             model_name='tour',
@@ -85,4 +87,5 @@ class Migration(migrations.Migration):
             name='city',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='guiaTurismo.City'),
         ),
+
     ]
