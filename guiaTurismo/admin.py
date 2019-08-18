@@ -1,37 +1,37 @@
 from django.contrib import admin
 
-from guiaTurismo.models import Ciudades, Categorias, Guias, Tours
+from guiaTurismo.models import City, Category, Guide, Tour
 
 
-class CiudadesAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre')
-    search_fields = ('nombre', )
+class CityAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+    search_fields = ('name',)
 
 
-class CategoriasAdmin(admin.ModelAdmin):
-    list_display = ('id', 'descripcion')
-    search_fields = ('descripcion', )
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'description')
+    search_fields = ('description',)
 
 
-class GuiasAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre',
-                    'frase',
-                    'foto',
+class GuideAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name',
+                    'phrase',
+                    'photo',
                     'facebook',
                     'instagram',
-                    'telefono',
+                    'phone',
                     'email',)
 
 
-class ToursAdmin(admin.ModelAdmin):
-    list_display = ('id', 'id_guia',
-                    'nombre',
-                    'precio',
-                    'url_imagen_mapa',
-                    'id_categoria')
+class TourAdmin(admin.ModelAdmin):
+    list_display = ('id', 'guide',
+                    'name',
+                    'price',
+                    'url_map_image',
+                    'category')
 
 
-admin.site.register(Ciudades, CiudadesAdmin)
-admin.site.register(Categorias, CategoriasAdmin)
-admin.site.register(Guias, GuiasAdmin)
-admin.site.register(Tours, ToursAdmin)
+admin.site.register(City, CityAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Guide, GuideAdmin)
+admin.site.register(Tour, TourAdmin)
