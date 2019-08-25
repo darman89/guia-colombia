@@ -126,7 +126,14 @@ STATIC_URL = '/guides/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'users.authentication.ExpiringTokenAuthentication',  # custom authentication class
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -143,6 +150,6 @@ AWS_QUERYSTRING_EXPIRE = os.environ['AWS_QUERYSTRING_EXPIRE']
 AWS_S3_REGION_NAME = os.environ['AWS_S3_REGION_NAME']
 
 django_heroku.settings(locals())
-
+TOKEN_EXPIRED_AFTER_SECONDS = 3600
 # sslmode issue workaround
 # del DATABASES['default']['OPTIONS']['sslmode']
