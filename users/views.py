@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import datetime
 from django.conf import settings
 from django.contrib.auth import user_logged_in, login
@@ -16,12 +16,13 @@ from users.serializers import UserSerializer
 
 
 class UserViewSet(GenericViewSet, CreateModelMixin):
-    queryset = User.objects.exclude(is_staff=False)
+    # queryset = User.objects.exclude(is_staff=False)
+    queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 def expires_in(token):
-    time_elapsed = datetime.datetime.now() - token.created
+    time_elapsed = datetime.datetime.now(timezone.utc) - token.created
     left_time = timedelta(seconds=settings.TOKEN_EXPIRED_AFTER_SECONDS) - time_elapsed
     return left_time
 
