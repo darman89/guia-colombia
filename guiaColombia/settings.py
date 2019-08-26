@@ -131,9 +131,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'guiaColombia.authentication_helpers.ExpiringTokenAuthentication',  # custom authentication class
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    )
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     )
 }
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
