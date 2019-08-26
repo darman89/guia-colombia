@@ -128,7 +128,7 @@ STATICFILES_DIRS = (
 )
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'users.authentication.ExpiringTokenAuthentication',  # custom authentication class
+        'guiaColombia.authentication_helpers.ExpiringTokenAuthentication',  # custom authentication class
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
