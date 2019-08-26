@@ -8,5 +8,5 @@ router = DefaultRouter()
 router.register('user', UserViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^/api-token-auth/', ObtainAuthToken.as_view(), name='api_token_auth'),
+    url(r'^api-token-auth/', ObtainAuthToken.as_view(), name='api_token_auth'),
 ]
