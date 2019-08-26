@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
+import datetime
 from django.conf import settings
 from django.contrib.auth import user_logged_in, login
 from django.views.decorators.csrf import csrf_exempt
@@ -20,7 +21,7 @@ class UserViewSet(GenericViewSet, CreateModelMixin):
 
 
 def expires_in(token):
-    time_elapsed = datetime.now(timezone.utc) - token.created
+    time_elapsed = datetime.datetime.now() - token.created
     left_time = timedelta(seconds=settings.TOKEN_EXPIRED_AFTER_SECONDS) - time_elapsed
     return left_time
 
