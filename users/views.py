@@ -1,30 +1,24 @@
-from datetime import datetime, timedelta, timezone
-import datetime
-from django.conf import settings
-from django.contrib.auth import user_logged_in, login
+from django.contrib.auth import user_logged_in
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import parsers, renderers
 from rest_framework.authtoken.serializers import AuthTokenSerializer
-from rest_framework.mixins import CreateModelMixin
+from rest_framework.mixins import CreateModelMixin, UpdateModelMixin, RetrieveModelMixin
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.authtoken.models import Token
+
+from guiaColombia.authentication_helpers import expires_in
 from users.models import User
+from users.permissions import IsTheUserOrCreate
 from users.serializers import UserSerializer
 
 
-class UserViewSet(GenericViewSet, CreateModelMixin):
-    # queryset = User.objects.exclude(is_staff=False)
+class UserViewSet(GenericViewSet, CreateModelMixin, UpdateModelMixin, RetrieveModelMixin):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-
-def expires_in(token):
-    time_elapsed = datetime.datetime.now(timezone.utc) - token.created
-    left_time = timedelta(seconds=settings.TOKEN_EXPIRED_AFTER_SECONDS) - time_elapsed
-    return left_time
+    permission_classes = (IsTheUserOrCreate,)
 
 
 class ObtainAuthToken(APIView):
