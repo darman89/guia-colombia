@@ -6,11 +6,15 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
+from rest_framework.generics import ListAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 
-from .models import Guide, City, Category
-from .serializers import GuideSerializer
+from guiaTurismo.filters import TourFilter
+from .models import Guide, City, Category, Tour
+from .serializers import GuideSerializer, TourSerializer
+
 
 @csrf_exempt
 def guides_view(request):
@@ -75,3 +79,10 @@ def is_logged_view(request):
         message = 'no'
 
     return JsonResponse({"message": message})
+
+
+class ToursList(ListAPIView):
+    queryset = Tour.objects.all()
+    serializer_class = TourSerializer
+    filter_class = TourFilter
+    permission_classes = (IsAuthenticated,)
