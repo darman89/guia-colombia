@@ -5,14 +5,16 @@ from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from rest_framework import status
+from rest_framework.generics import ListAPIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import permission_classes, authentication_classes, api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 
-from .models import Guide, City, Category
-from .serializers import GuideSerializer
+from guiaTurismo.filters import TourFilter
+from .models import Guide, City, Category, Tour
+from .serializers import GuideSerializer, TourSerializer
 
 
 @api_view(['GET'])
@@ -81,3 +83,10 @@ def is_logged_view(request):
     else:
         message = 'no'
     return JsonResponse({"message": message})
+
+
+class ToursList(ListAPIView):
+    queryset = Tour.objects.all()
+    serializer_class = TourSerializer
+    filter_class = TourFilter
+    permission_classes = (IsAuthenticated,)

@@ -35,4 +35,14 @@ class GuideSerializer(serializers.ModelSerializer):
         fields = ('name', 'phrase', 'photo', 'facebook', 'instagram', 'phone', 'email', 'city', 'category')
 
 
+class TourSerializer(serializers.ModelSerializer):
+    name = serializers.CharField()
+    price = serializers.FloatField()
+    url_map_image = serializers.CharField()
+    guide = GuideSerializer(read_only=True)
+    category = CategorySerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Guide
+        fields = '__all__'
 

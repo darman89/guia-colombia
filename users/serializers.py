@@ -18,12 +18,13 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'address', 'phone', 'password', 'confirm_password')
+        fields = ('id', 'email', 'first_name', 'last_name', 'address', 'phone', 'password', 'confirm_password',
+                  'username')
 
     def create(self, validated_data):
         # Validate the password
-        username = validated_data['email']
-        validated_data['username'] = username
+        # username = validated_data['email']
+        # validated_data['username'] = username
         password = validated_data.get('password', None)
         confirm_password = validated_data.pop('confirm_password', None)
         if not has_valid_password(password, confirm_password):
