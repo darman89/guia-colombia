@@ -1,7 +1,9 @@
 from django.contrib.auth import user_logged_in
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import parsers, renderers
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.decorators import authentication_classes
 from rest_framework.mixins import CreateModelMixin, UpdateModelMixin, RetrieveModelMixin
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
@@ -15,6 +17,7 @@ from users.permissions import IsTheUserOrCreate
 from users.serializers import UserSerializer
 
 
+@authentication_classes([TokenAuthentication])
 class UserViewSet(GenericViewSet, CreateModelMixin, UpdateModelMixin, RetrieveModelMixin):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -43,4 +46,3 @@ class ObtainAuthToken(APIView):
             'expires_in': expires_in(token),
             'token': token.key
         }, status=HTTP_200_OK)
-
