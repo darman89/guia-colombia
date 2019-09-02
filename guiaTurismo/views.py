@@ -19,7 +19,6 @@ from .serializers import GuideSerializer, TourSerializer
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def guides_view(request):
     guides_list = Guide.objects.all().prefetch_related('city').prefetch_related('category')
     cityId = request.GET.get('cityId')

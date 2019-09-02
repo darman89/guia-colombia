@@ -47,12 +47,6 @@ INSTALLED_APPS = [
     'users'
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
-}
-
 AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
@@ -139,10 +133,7 @@ STATICFILES_DIRS = (
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'guiaColombia.authentication_helpers.ExpiringTokenAuthentication',  # custom authentication class
-    ),
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     )
+    )
 }
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
