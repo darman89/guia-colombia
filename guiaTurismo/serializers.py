@@ -32,7 +32,7 @@ class GuideSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Guide
-        fields = ('name', 'phrase', 'photo', 'facebook', 'instagram', 'phone', 'email', 'city', 'category')
+        fields = ('id','name', 'phrase', 'photo', 'facebook', 'instagram', 'phone', 'email', 'city', 'category')
 
 
 class TourSerializer(serializers.ModelSerializer):

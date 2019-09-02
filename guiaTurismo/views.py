@@ -88,4 +88,3 @@ class ToursList(ListAPIView):
     queryset = Tour.objects.all()
     serializer_class = TourSerializer
     filter_class = TourFilter
-    permission_classes = (IsAuthenticated,)
