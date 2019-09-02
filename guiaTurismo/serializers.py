@@ -40,7 +40,7 @@ class TourSerializer(serializers.ModelSerializer):
     price = serializers.FloatField()
     url_map_image = serializers.CharField()
     guide = GuideSerializer(read_only=True)
-    category = CategorySerializer(many=True, read_only=True)
+    category = CategorySerializer(read_only=True)
 
     class Meta:
         model = Tour
