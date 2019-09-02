@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.relations import PrimaryKeyRelatedField
-from .models import City, Category, Guide
+from .models import City, Category, Guide, Tour
 
 
 class CitySerializer(serializers.ModelSerializer):
@@ -43,6 +43,6 @@ class TourSerializer(serializers.ModelSerializer):
     category = CategorySerializer(many=True, read_only=True)
 
     class Meta:
-        model = Guide
+        model = Tour
         fields = '__all__'
 
