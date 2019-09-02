@@ -45,6 +45,7 @@ class Tour(models.Model):
     price = models.FloatField(max_length=255)
     url_map_image = models.CharField(max_length=500)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    activities = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name

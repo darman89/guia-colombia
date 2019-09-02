@@ -11,6 +11,7 @@ from rest_framework.decorators import permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
+from django_filters import rest_framework as filters
 
 from guiaTurismo.filters import TourFilter
 from .models import Guide, City, Category, Tour
@@ -19,7 +20,6 @@ from .serializers import GuideSerializer, TourSerializer
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def guides_view(request):
     guides_list = Guide.objects.all().prefetch_related('city').prefetch_related('category')
     cityId = request.GET.get('cityId')
@@ -58,6 +58,12 @@ def categories_view(request, category_id=None):
     return HttpResponse(serializers.serialize("json", categories_list), content_type="application/json")
 
 
+@api_view(["GET"])
+def tours_guide(request, guide_id):
+    tours = Tour.objects.filter(guide=guide_id)
+    return Response(TourSerializer(tours, many=True).data)
+
+
 def login_view(request):
     if request.method == 'POST':
         jsonUser = json.loads(request.body)
@@ -88,5 +94,5 @@ def is_logged_view(request):
 class ToursList(ListAPIView):
     queryset = Tour.objects.all()
     serializer_class = TourSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
     filter_class = TourFilter
-    permission_classes = (IsAuthenticated,)

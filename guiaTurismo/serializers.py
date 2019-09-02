@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.relations import PrimaryKeyRelatedField
-from .models import City, Category, Guide
+from .models import City, Category, Guide, Tour
 
 
 class CitySerializer(serializers.ModelSerializer):
@@ -32,7 +32,7 @@ class GuideSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Guide
-        fields = ('name', 'phrase', 'photo', 'facebook', 'instagram', 'phone', 'email', 'city', 'category')
+        fields = ('id', 'name', 'phrase', 'photo', 'facebook', 'instagram', 'phone', 'email', 'city', 'category')
 
 
 class TourSerializer(serializers.ModelSerializer):
@@ -40,9 +40,9 @@ class TourSerializer(serializers.ModelSerializer):
     price = serializers.FloatField()
     url_map_image = serializers.CharField()
     guide = GuideSerializer(read_only=True)
-    category = CategorySerializer(many=True, read_only=True)
+    category = CategorySerializer(read_only=True)
 
     class Meta:
-        model = Guide
+        model = Tour
         fields = '__all__'
 
