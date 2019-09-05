@@ -30,8 +30,8 @@ def guides_view(request):
         guides_list = guides_list.filter(city__id=cityId)
     if categoryId is not None:
         guides_list = guides_list.filter(category__id=categoryId)
-    # for guide in guides_list:
-    #   guide.photo = guide.photo.url
+    for guide in guides_list:
+        guide.photo = guide.photo.url
     serializer_class = GuideSerializer(guides_list, many=True)
     response = Response(serializer_class.data, status=status.HTTP_200_OK, )
     response.accepted_renderer = JSONRenderer()
