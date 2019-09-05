@@ -14,6 +14,7 @@ from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
 from guiaTurismo.filters import TourFilter
+from users.models import User
 from .models import Guide, City, Category, Tour
 from .serializers import GuideSerializer, TourSerializer
 
@@ -28,8 +29,8 @@ def guides_view(request):
         guides_list = guides_list.filter(city__id=cityId)
     if categoryId is not None:
         guides_list = guides_list.filter(category__id=categoryId)
-    for guide in guides_list:
-        guide.photo = guide.photo.url
+    # for guide in guides_list:
+    #   guide.photo = guide.photo.url
     serializer_class = GuideSerializer(guides_list, many=True)
     response = Response(serializer_class.data, status=status.HTTP_200_OK, )
     response.accepted_renderer = JSONRenderer()
@@ -62,6 +63,27 @@ def categories_view(request, category_id=None):
 def tours_guide(request, guide_id):
     tours = Tour.objects.filter(guide=guide_id)
     return Response(TourSerializer(tours, many=True).data)
+
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def email_view(request):
+    jsonEmail = json.loads(request.body)
+    tourId = jsonEmail['tourId']
+    userId = jsonEmail['userId']
+    tour = Tour.objects.get(id=tourId)
+    user = User.objects.get(id=userId)
+    guide = Guide.objects.get(id=tour.guide.id)
+    emailTo = guide.email
+    emailFrom = '' # TODO
+    subject = "Hay un turista interesado en uno de tus tours"
+    message = ("Hola " + guide.name + "! \n" +
+               user.username + "está interesado en tu Tour " + tour.name + "\n"+
+               "puedes contactarlo al correo: " + user.email + "\n" +
+               "Saludos, Guias Ágiles Colombia.")
+    # TODO add loguc to send email
+    return JsonResponse({"message":message, "email ": emailTo})
 
 
 def login_view(request):
