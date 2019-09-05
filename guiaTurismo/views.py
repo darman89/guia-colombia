@@ -1,5 +1,6 @@
 import json
-from tokenize import Token
+import os
+import requests
 
 from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
@@ -75,15 +76,18 @@ def email_view(request):
     tour = Tour.objects.get(id=tourId)
     user = User.objects.get(id=userId)
     guide = Guide.objects.get(id=tour.guide.id)
-    emailTo = guide.email
-    emailFrom = '' # TODO
-    subject = "Hay un turista interesado en uno de tus tours"
-    message = ("Hola " + guide.name + "! \n" +
-               user.username + "está interesado en tu Tour " + tour.name + "\n"+
-               "puedes contactarlo al correo: " + user.email + "\n" +
-               "Saludos, Guias Ágiles Colombia.")
-    # TODO add loguc to send email
-    return JsonResponse({"message":message, "email ": emailTo})
+
+    r = requests.post(
+        "https://api.eu.mailgun.net/v3/" + os.environ['MAILGUN_DOMAIN'] + "/messages",
+        auth=("api", os.environ['MAILGUN_API_KEY']),
+        data={"from": "Guía Colombia <mailgun@" + os.environ['MAILGUN_DOMAIN'] + ">",
+              "to": [guide.email],
+              "subject": "Hay un Turista interesado en uno de tus Tours",
+              "text": "Hola " + guide.name + "! \n" + user.username + "está interesado en tu Tour " + tour.name + "\n" +
+                      "puedes contactarlo al correo: " + user.email + "\n" + "Saludos, Guias Ágiles Colombia."
+              })
+    # Return response
+    return JsonResponse({"status": r.status_code})
 
 
 def login_view(request):
