@@ -78,7 +78,7 @@ def email_view(request):
     guide = Guide.objects.get(id=tour.guide.id)
 
     r = requests.post(
-        "https://api.eu.mailgun.net/v3/" + os.environ['MAILGUN_DOMAIN'] + "/messages",
+        "https://api.mailgun.net/v3/" + os.environ['MAILGUN_DOMAIN'] + "/messages",
         auth=("api", os.environ['MAILGUN_API_KEY']),
         data={"from": "Guía Colombia <mailgun@" + os.environ['MAILGUN_DOMAIN'] + ">",
               "to": [guide.email],
