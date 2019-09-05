@@ -83,7 +83,7 @@ def email_view(request):
         data={"from": "Guía Colombia <mailgun@" + os.environ['MAILGUN_DOMAIN'] + ">",
               "to": [guide.email],
               "subject": "Hay un Turista interesado en uno de tus Tours",
-              "text": "Hola " + guide.name + "! \n" + user.username + "está interesado en tu Tour " + tour.name + "\n" +
+              "text": "Hola " + guide.name + "! \n" + user.first_name + " " + user.last_name + " está interesado en tu Tour " + tour.name + "\n" +
                       "puedes contactarlo al correo: " + user.email + "\n" + "Saludos, Guias Ágiles Colombia."
               })
     # Return response
