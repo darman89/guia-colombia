@@ -42,7 +42,6 @@ def guides_view(request):
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def cities_view(request, city_id=None):
     cities_list = City.objects.all()
     if city_id is not None:
@@ -52,7 +51,6 @@ def cities_view(request, city_id=None):
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def categories_view(request, category_id=None):
     categories_list = Category.objects.all()
     if category_id is not None:
